@@ -6,7 +6,7 @@
   "author": "Alex Lloyd",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "proto-gen-client": "mkdir -p src/generated/client && protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --js_out=\"import_style=commonjs,binary:./src/generated/client\" --ts_out=\"service=grpc-web:.src//generated/client\" proto/train_api.proto",
+    "proto-gen-client": "mkdir -p src/generated/client && protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --js_out=\"import_style=commonjs,binary:./src/generated/client\" --ts_out=\"service=grpc-web:./src/generated/client\" proto/train_api.proto",
     "proto-gen-server": "mkdir -p src/generated/server && protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --plugin=\"protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin\" --js_out=\"import_style=commonjs,binary:./src/generated/server\" --ts_out=\"service=grpc-node,mode=grpc-js:./src/generated/server\" --grpc_out=\"grpc_js:./src/generated/server\" proto/train_api.proto",
     "server": "ts-node src/server.ts"
   },
