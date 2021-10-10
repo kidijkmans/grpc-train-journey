@@ -24,7 +24,11 @@ class TrainAPIServer implements ITrainAPIServer {
     }
 
     public listTrains(call: ServerUnaryCall<ListTrainsRequest, ListTrainsResponse>, callback: sendUnaryData<ListTrainsResponse>): void {
-        callback(null)
+        const train = new Train()
+        train.setId("123")
+        const response = new ListTrainsResponse()
+        response.addTrains(train)
+        callback(null, response)
     }
 }
 
