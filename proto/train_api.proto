@@ -82,8 +82,6 @@ service TrainAPI {
   // Create a Train
   //
   // Create a new train.
-  // (-- api-linter: core::0133::http-uri-parent=disabled
-  //  aip.dev/not-precedent: This is a top level resource --)
   rpc CreateTrain(CreateTrainRequest) returns (Train);
 
   // Get a train
@@ -94,8 +92,6 @@ service TrainAPI {
   // Update an existing train
   //
   // Update a train. If the train does not exists, returns NOT_FOUND
-  // (-- api-linter: core::0127::http-annotation=disabled
-  //  aip.dev/not-precedent: There is a bug in patch methods for plugin generation --)
   rpc UpdateTrain(UpdateTrainRequest) returns (Train);
   
   // Delete a train
@@ -110,8 +106,6 @@ service TrainAPI {
 }
 
 // Create a new train
-// (-- api-linter: core::0133::request-parent-required=disabled
-//  aip.dev/not-precedent: This is a top level resource --)
 message CreateTrainRequest {
 
   // Train to create.
@@ -144,8 +138,6 @@ message DeleteTrainRequest {
 
 // Request a list of trains. First request should leave page_token empty.
 // If response provides next_page_token, pass this as page_token in the next request. The maximum number of results is 10
-// (-- api-linter: core::0132::request-parent-required=disabled
-//  aip.dev/not-precedent: This is a top level resource --)
 message ListTrainsRequest {
 
   // The maximum number of trains to return. The service may return fewer than this value. If unspecified, at most 10
