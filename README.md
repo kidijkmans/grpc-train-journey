@@ -9,12 +9,13 @@
 npm install
 ```
 
-3. Download [gRPC web proxy](https://github.com/improbable-eng/grpc-web) for your platform.
-4. Generate the client and server stubs
+4. Generate the client and server stubs for your operating system
 
 ```bash
-npm run proto-gen-client
-npm run proto-gen-server
+npm run proxo-gen-osx
+npm run proxo-gen-win32
+npm run proxo-gen-win64
+npm run proxo-gen-linux
 ```
 
 5. Open 3 terminals and run the grpc server, grpc-web-proxy and webpack dev server.
@@ -22,7 +23,10 @@ npm run proto-gen-server
 ```bash
 npm run server
 
-./grpcwebproxy-v0.14.1-osx-x86_64 --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins
+npm run webproxy-osx
+npm run webproxy-win32
+npm run webproxy-win64
+npm run webproxy-linux
 
 npm run client
 ```

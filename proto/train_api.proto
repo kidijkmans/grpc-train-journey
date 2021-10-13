@@ -1,8 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
-import "google/protobuf/field_mask.proto";
-
 // TrainType specifies the type of train for this journey (high-speed, regular)
 enum TrainType {
     // The TrainType has not been specified
@@ -19,38 +16,14 @@ enum Operator {
     // Default value
     OPERATOR_UNSPECIFIED = 0;
   
-    // Caledonian Sleeper
-    OPERATOR_CALEDONIAN_SLEEPER = 1;
-  
-    // Chiltern Railways
-    OPERATOR_CHILTERN_RAILWAYS = 2;
-  
-    // East Midlands Railway
-    OPERATOR_EAST_MIDLANDS_RAILWAY = 3;
-  
-    // Great Northern
-    OPERATOR_GREAT_NORTHERN = 4;
-  
-    // Greater Anglia
-    OPERATOR_GREATER_ANGLIA = 5;
-  
-    // LNER
-    OPERATOR_LNER = 6;
-  
-    // ScotRail
-    OPERATOR_SCOT_RAIL = 7;
-  
-    // Southeastern
-    OPERATOR_SOUTHEASTERN = 8;
-  
     // South Western Railway
-    OPERATOR_SOUTH_WESTERN_RAILWAY = 9;
+    OPERATOR_SOUTH_WESTERN_RAILWAY = 1;
   
     // Thameslink
-    OPERATOR_THAMESLINK = 10;
+    OPERATOR_THAMESLINK = 2;
   
     // East Coast Trains
-    OPERATOR_EAST_COAST_TRAINS = 11;
+    OPERATOR_EAST_COAST_TRAINS = 3;
   }
 
 // Represents a train used for the journey.
@@ -82,6 +55,8 @@ service TrainAPI {
   // Create a Train
   //
   // Create a new train.
+  // (-- api-linter: core::0133::http-uri-parent=disabled
+  //  aip.dev/not-precedent: This is a top level resource --)
   rpc CreateTrain(CreateTrainRequest) returns (Train);
 
   // Get a train
@@ -92,12 +67,14 @@ service TrainAPI {
   // Update an existing train
   //
   // Update a train. If the train does not exists, returns NOT_FOUND
+  // (-- api-linter: core::0127::http-annotation=disabled
+  //  aip.dev/not-precedent: There is a bug in patch methods for plugin generation --)
   rpc UpdateTrain(UpdateTrainRequest) returns (Train);
   
   // Delete a train
   //
   // Delete the specific train.
-  rpc DeleteTrain(DeleteTrainRequest) returns (google.protobuf.Empty);
+  rpc DeleteTrain(DeleteTrainRequest) returns (DeleteTrainResponse);
 
   // Retrieve a list of trains
   //
@@ -106,6 +83,8 @@ service TrainAPI {
 }
 
 // Create a new train
+// (-- api-linter: core::0133::request-parent-required=disabled
+//  aip.dev/not-precedent: This is a top level resource --)
 message CreateTrainRequest {
 
   // Train to create.
@@ -124,9 +103,6 @@ message UpdateTrainRequest {
 
   // train_journey to update.
   Train train = 1;
-
-  // List of fields to be updated.
-  google.protobuf.FieldMask update_mask = 2;
 }
 
 // Delete a train by id
@@ -138,6 +114,8 @@ message DeleteTrainRequest {
 
 // Request a list of trains. First request should leave page_token empty.
 // If response provides next_page_token, pass this as page_token in the next request. The maximum number of results is 10
+// (-- api-linter: core::0132::request-parent-required=disabled
+//  aip.dev/not-precedent: This is a top level resource --)
 message ListTrainsRequest {
 
   // The maximum number of trains to return. The service may return fewer than this value. If unspecified, at most 10
@@ -159,3 +137,5 @@ message ListTrainsResponse {
   // If this field is omitted, there are no subsequent pages.
   string next_page_token = 2;
 }
+
+message DeleteTrainResponse {}

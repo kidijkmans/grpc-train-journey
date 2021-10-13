@@ -1,6 +1,133 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <button id="get-trains-button">Click me</button>
-    </body>
+
+<body>
+    <h1 style="margin-left: 20px;">BLK Proto Workshop</h1>
+    <div class="widget-container">
+        <form class="widget" id="create-train-form" style="display: inline-flex; flex-direction: column;">
+            <h2>Create Train</h2>
+
+            <div class="create-train__input flex-column">
+                <label for="name">ID (Optional)</label>
+                <input type="text" id="train-id" name="train-id"></input>
+            </div>
+
+            <div class="create-train__input flex-column">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name"></input>
+            </div>
+
+            <div class="create-train__input">
+                <h4>Train Type</h4>
+                <input type="radio" id="high-speed" name="train-type" value="1">
+                <label for="high-speed">High Speed</label><br>
+                <input type="radio" id="regular" name="train-type" value="2">
+                <label for="regular">Regular</label><br>
+            </div>
+
+            <div class="create-train__input">
+                <h4>Select Operator</h4>
+                <input type="radio" id="south-western" name="operator" value="1">
+                <label for="south-western">South Western Railway</label><br>
+                <input type="radio" id="thameslink" name="operator" value="2">
+                <label for="thameslink">Thameslink</label><br>
+                <input type="radio" id="east-coast" name="operator" value="3">
+                <label for="east-coast">East Coast Trains</label>
+            </div>
+
+            <div class="create-train__input flex-column">
+                <label for="coach-count">Coach Count</label>
+                <input type="number" id="coach-count" name="coach-count"></input>
+            </div>
+
+            <div class="create-train__input">
+                <input type="checkbox" id="catering" name="catering"></input>
+                <label for="catering">Catering</label>
+            </div>
+
+            <button type="submit">Create Train</button>
+        </form>
+
+        <div class="widget">
+            <h2>Get Trains</h2>
+            <div id="train-list"></div>
+            <button id="get-trains-button">Load Trains</button>
+        </div>
+
+        <div class="widget">
+            <h2>Delete Train</h2>
+            <form id="delete-train-form">
+                <label for="train-id">Train ID</label>
+                <input type="text" id="train-id" name="train-id"></input>
+            </form>
+            <button id="delete-train-button">Load Trains</button>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        background: #0000000a;
+        font-family: "Segoe UI VSS (Regular)", "Segoe UI", "-apple-system", BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Ubuntu, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .widget-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    h4 {
+        margin: 0;
+    }
+
+    button {
+        background-color: #0000f3;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #6e87ff;
+    }
+
+    .widget {
+        background: white;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 8px 1px #00000047;
+        margin: 20px;
+        padding: 20px;
+        overflow: auto;
+        min-width: 300px;
+        flex: 1;
+    }
+
+    #train-list {
+        height: 100%;
+        max-height: 350px;
+        overflow: auto;
+    }
+
+    .create-train__input {
+        margin-bottom: 16px;
+    }
+
+    .train {
+        margin-bottom: 12px;
+        background: #0000000a;
+        border: 1px solid #00000036;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
 </html>
