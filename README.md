@@ -12,10 +12,10 @@ npm install
 4. Generate the client and server stubs for your operating system
 
 ```bash
-npm run proxo-gen-osx
-npm run proxo-gen-win32
-npm run proxo-gen-win64
-npm run proxo-gen-linux
+npm run proto-gen-osx
+npm run proto-gen-win32
+npm run proto-gen-win64
+npm run proto-gen-linux
 ```
 
 5. Open 3 terminals and run the grpc server, grpc-web-proxy and webpack dev server.
