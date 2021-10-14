@@ -1,8 +1,5 @@
 import {
-  CreateTrainRequest,
-  DeleteTrainRequest,
   DeleteTrainResponse,
-  ListTrainsRequest,
   ListTrainsResponse,
   Train,
 } from "./generated/client/proto/train_api_pb";
@@ -24,8 +21,7 @@ declare type Callback<T> = (
 ) => void;
 
 export function getTrains(callback: Callback<ListTrainsResponse>) {
-  const request = new ListTrainsRequest();
-  client.listTrains(request, callback);
+  // TODO: Implement call to server to get trains
 }
 
 export function createTrain(
@@ -36,23 +32,12 @@ export function createTrain(
   catering: boolean,
   callback: Callback<Train>
 ) {
-  const train = new Train();
-  train.setName(name);
-  train.setTrainType(trainType);
-  train.setOperator(operator);
-  train.setCoachCount(coachCount);
-  train.setCatering(catering);
-  const request = new CreateTrainRequest();
-  request.setTrain(train);
-  client.createTrain(request, callback);
+  // TODO: Implement call to server to create train
 }
 
 export function deleteTrain(
   id: string,
   callback: Callback<DeleteTrainResponse>
 ) {
-  const request = new DeleteTrainRequest();
-  request.setId(id);
-
-  client.deleteTrain(request, callback);
+  // TODO: Implement call to server to delete train
 }

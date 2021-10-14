@@ -21,8 +21,6 @@ import {
   DeleteTrainResponse,
 } from "./generated/server/proto/train_api_pb";
 
-const trains: Train[] = [];
-
 class TrainAPIServer implements ITrainAPIServer {
   [name: string]: UntypedHandleCall;
 
@@ -30,50 +28,35 @@ class TrainAPIServer implements ITrainAPIServer {
     call: ServerUnaryCall<CreateTrainRequest, Train>,
     callback: sendUnaryData<Train>
   ): void {
-    const train = call.request.getTrain();
-    train.setId(trains.length.toString());
-    trains.push(train);
-
-    callback(null, train);
+    // TODO: Implement function to create train and return response
   }
 
   public getTrain(
     call: ServerUnaryCall<GetTrainRequest, Train>,
     callback: sendUnaryData<Train>
   ): void {
-    callback(null);
+    // TODO: Implement function to return train
   }
 
   public updateTrain(
     call: ServerUnaryCall<UpdateTrainRequest, Train>,
     callback: sendUnaryData<Train>
   ): void {
-    callback(null);
+    // TODO: Implement function to update train
   }
 
   public deleteTrain(
     call: ServerUnaryCall<DeleteTrainRequest, any>,
     callback: sendUnaryData<DeleteTrainResponse>
   ): void {
-    const index = trains.findIndex((t) => t.getId() === call.request.getId());
-    if (index === -1) {
-      callback({
-        name: "NotFound",
-        message: `No train for ${call.request.getId()}`,
-      });
-    } else {
-      trains.splice(index, 1);
-      callback(null, new DeleteTrainResponse());
-    }
+    // TODO: Implement function to delete train
   }
 
   public listTrains(
     call: ServerUnaryCall<ListTrainsRequest, ListTrainsResponse>,
     callback: sendUnaryData<ListTrainsResponse>
   ): void {
-    const response = new ListTrainsResponse();
-    response.setTrainsList(trains);
-    callback(null, response);
+    // TODO: Implement function to list trains
   }
 }
 
