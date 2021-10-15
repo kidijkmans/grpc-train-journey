@@ -5,11 +5,6 @@ import {
   ServerUnaryCall,
   UntypedHandleCall,
 } from "@grpc/grpc-js";
-import {
-  CreateTrainResponse,
-  Operator,
-  TrainType,
-} from "./generated/client/proto/train_api_pb";
 
 import {
   ITrainAPIServer,
@@ -22,6 +17,9 @@ import {
   ListTrainsRequest,
   ListTrainsResponse,
   DeleteTrainResponse,
+  CreateTrainResponse,
+  Operator,
+  TrainType,
 } from "./generated/server/proto/train_api_pb";
 
 // Initial train that is already present on startup of server
@@ -73,8 +71,6 @@ class TrainAPIServer implements ITrainAPIServer {
     // Hint 1: Get index of train using findIndex (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
     // Hint 2: Remove element from array at index using splice(index, 1)
     // Bonus: Return error if ID doesn't exist
-
-    trains.findIndex((train) => train.getId() === trainId);
 
     const response = new DeleteTrainResponse();
     callback(null, response);
