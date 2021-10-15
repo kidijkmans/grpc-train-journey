@@ -1,11 +1,8 @@
-import { ServiceError } from "./src/generated/client/proto/train_api_pb_service";
+import { createTrain, listTrains, deleteTrain } from "./src/client";
 import {
-  Operator,
-  TrainType,
-  createTrain,
-  getTrains,
-  deleteTrain,
-} from "./src/client";
+  OperatorMap,
+  TrainTypeMap,
+} from "./src/generated/client/proto/train_api_pb";
 
 const form: HTMLFormElement = document.querySelector("#create-train-form");
 const deleteTrainForm: HTMLFormElement =
@@ -40,8 +37,10 @@ form.onsubmit = () => {
     const name = formData.get("name") as string;
     const trainType = parseInt(
       formData.get("train-type") as string
-    ) as TrainType;
-    const operator = parseInt(formData.get("operator") as string) as Operator;
+    ) as TrainTypeMap[keyof TrainTypeMap];
+    const operator = parseInt(
+      formData.get("operator") as string
+    ) as OperatorMap[keyof OperatorMap];
     const coachCount = parseInt(formData.get("coach-count") as string);
     const catering = formData.get("catering") === "on";
 
@@ -60,7 +59,7 @@ form.onsubmit = () => {
 };
 
 getTrainsButton.addEventListener("click", () => {
-  getTrains((err, response) => {
+  listTrains((err, response) => {
     if (err) {
       alert(`An error occurred getting trains: ${err.message}`);
     } else {

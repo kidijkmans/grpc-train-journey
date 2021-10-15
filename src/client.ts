@@ -1,7 +1,12 @@
 import {
+  CreateTrainRequest,
+  DeleteTrainRequest,
   DeleteTrainResponse,
+  ListTrainsRequest,
   ListTrainsResponse,
+  OperatorMap,
   Train,
+  TrainTypeMap,
 } from "./generated/client/proto/train_api_pb";
 import {
   TrainAPIClient,
@@ -9,35 +14,41 @@ import {
 } from "./generated/client/proto/train_api_pb_service";
 
 const GRPC_GATEWAY = "http://localhost:8080";
-
 const client = new TrainAPIClient(GRPC_GATEWAY);
-
-export declare type TrainType = 0 | 1 | 2;
-export declare type Operator = 0 | 1 | 2 | 3;
 
 declare type Callback<T> = (
   error: ServiceError | null,
   responseMessage: T | null
 ) => void;
 
-export function getTrains(callback: Callback<ListTrainsResponse>) {
-  // TODO: Implement call to server to get trains
+export function listTrains(callback: Callback<ListTrainsResponse>) {
+  // TODO: Implement list trains request
 }
 
 export function createTrain(
   name: string,
-  trainType: TrainType,
-  operator: Operator,
+  trainType: TrainTypeMap[keyof TrainTypeMap],
+  operator: OperatorMap[keyof OperatorMap],
   coachCount: number,
   catering: boolean,
   callback: Callback<Train>
 ) {
-  // TODO: Implement call to server to create train
+  const request = new CreateTrainRequest();
+  const train = new Train();
+
+  // TODO: Set properties of train
+
+  request.setTrain(train);
+  client.createTrain(request, callback);
 }
 
 export function deleteTrain(
   id: string,
   callback: Callback<DeleteTrainResponse>
 ) {
-  // TODO: Implement call to server to delete train
+  const request = new DeleteTrainRequest();
+
+  // TODO: Set id of train to be deleted in request
+
+  client.deleteTrain(request, callback);
 }

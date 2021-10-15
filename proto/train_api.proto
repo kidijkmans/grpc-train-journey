@@ -1,141 +1,74 @@
 syntax = "proto3";
 
-// TrainType specifies the type of train for this journey (high-speed, regular)
 enum TrainType {
-    // The TrainType has not been specified
+
     TRAIN_TYPE_UNSPECIFIED = 0;
-    // The train is a High Speed train
     TRAIN_TYPE_HIGH_SPEED = 1;
-    // The train is a regular train
     TRAIN_TYPE_REGULAR = 2;
 }
-  
+
 // Company operating the train
 enum Operator {
 
-    // Default value
     OPERATOR_UNSPECIFIED = 0;
-  
-    // South Western Railway
     OPERATOR_SOUTH_WESTERN_RAILWAY = 1;
-  
-    // Thameslink
     OPERATOR_THAMESLINK = 2;
-  
-    // East Coast Trains
     OPERATOR_EAST_COAST_TRAINS = 3;
   }
 
-// Represents a train used for the journey.
 message Train {
-  // ID is the train's unique identifier
-  string id = 1;
 
-  // Trains's unique short code
-  string short_code = 2;
+  // ID is the train's unique identifier
+  int32 id = 1;
 
   // Name of the train
-  string name = 3;
+  string name = 2;
 
   // The type of the train
-  TrainType train_type = 4;
+  TrainType train_type = 3;
 
   // Company operating the train
-  Operator operator = 5;
+  Operator operator = 4;
 
   // Number of coaches
-  int32 coach_count = 6;
+  int32 coach_count = 5;
 
   // Whether the train has food facilities
-  bool catering = 7;
+  bool catering = 6;
 }
 
-// A service handles train management, including train CRUD.
+// A service handles train management
 service TrainAPI {
-  // Create a Train
-  //
-  // Create a new train.
-  // (-- api-linter: core::0133::http-uri-parent=disabled
-  //  aip.dev/not-precedent: This is a top level resource --)
-  rpc CreateTrain(CreateTrainRequest) returns (Train);
 
-  // Get a train
-  //
-  // Retrieve the specific train.
-  rpc GetTrain(GetTrainRequest) returns (Train);
-
-  // Update an existing train
-  //
-  // Update a train. If the train does not exists, returns NOT_FOUND
-  // (-- api-linter: core::0127::http-annotation=disabled
-  //  aip.dev/not-precedent: There is a bug in patch methods for plugin generation --)
-  rpc UpdateTrain(UpdateTrainRequest) returns (Train);
-  
-  // Delete a train
-  //
-  // Delete the specific train.
-  rpc DeleteTrain(DeleteTrainRequest) returns (DeleteTrainResponse);
-
-  // Retrieve a list of trains
-  //
-  // Obtain a list of trains. Supports pagination
   rpc ListTrains(ListTrainsRequest) returns (ListTrainsResponse);
+  rpc CreateTrain(CreateTrainRequest) returns (CreateTrainResponse);
+  rpc DeleteTrain(DeleteTrainRequest) returns (DeleteTrainResponse);
 }
 
 // Create a new train
-// (-- api-linter: core::0133::request-parent-required=disabled
-//  aip.dev/not-precedent: This is a top level resource --)
 message CreateTrainRequest {
 
   // Train to create.
   Train train = 1;
 }
 
-// Get a train by id
-message GetTrainRequest {
-
-  // Name of the train
-  string id = 1;
-}
-
-// Update a train. To only update a subset of fields, use update_mask
-message UpdateTrainRequest {
-
-  // train_journey to update.
-  Train train = 1;
-}
+message CreateTrainResponse {}
 
 // Delete a train by id
 message DeleteTrainRequest {
 
-  // Name of the train
-  string id = 1;
+  // ID of train to be deleted
+  int32 id = 1;
 }
 
-// Request a list of trains. First request should leave page_token empty.
-// If response provides next_page_token, pass this as page_token in the next request. The maximum number of results is 10
-// (-- api-linter: core::0132::request-parent-required=disabled
-//  aip.dev/not-precedent: This is a top level resource --)
-message ListTrainsRequest {
+// Request a list of trains
+message ListTrainsRequest {}
 
-  // The maximum number of trains to return. The service may return fewer than this value. If unspecified, at most 10
-  // trains will be returned. The maximum value is 10; values above 10 will be coerced to 10.
-  int32 page_size = 1;
-
-  // A page token received from a previous 'ListTrains' call. Provide this to retrieve the subsequent page.
-  // When paginating, all other parameters provided to 'ListTrains' must match the call that provided the page token.
-  string page_token = 2;
-}
-
-// Response containing a list of Trains. If there are more results than could fit into one page, next_page_token will be non-empty
+// Response containing a list of Trains
 message ListTrainsResponse {
 
   // Trains to be returned
   repeated Train trains = 1;
-
-  // A token which can be sent as 'page_token' to retrieve the next page.
-  // If this field is omitted, there are no subsequent pages.
-  string next_page_token = 2;
 }
 
 message DeleteTrainResponse {}

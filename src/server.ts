@@ -5,6 +5,11 @@ import {
   ServerUnaryCall,
   UntypedHandleCall,
 } from "@grpc/grpc-js";
+import {
+  CreateTrainResponse,
+  Operator,
+  TrainType,
+} from "./generated/client/proto/train_api_pb";
 
 import {
   ITrainAPIServer,
@@ -13,50 +18,66 @@ import {
 import {
   CreateTrainRequest,
   Train,
-  GetTrainRequest,
-  UpdateTrainRequest,
   DeleteTrainRequest,
   ListTrainsRequest,
   ListTrainsResponse,
   DeleteTrainResponse,
 } from "./generated/server/proto/train_api_pb";
 
+// Initial train that is already present on startup of server
+const initTrain: Train = new Train();
+initTrain.setName("Initial Train");
+initTrain.setId(0);
+initTrain.setOperator(Operator.OPERATOR_THAMESLINK);
+initTrain.setTrainType(TrainType.TRAIN_TYPE_HIGH_SPEED);
+initTrain.setCoachCount(5);
+
+// Counter for number of trains that have been created
+let trainCount = 1;
+// Tracks all trains in the server
+const trains: Train[] = [initTrain];
+
 class TrainAPIServer implements ITrainAPIServer {
   [name: string]: UntypedHandleCall;
 
+  public listTrains(
+    call: ServerUnaryCall<ListTrainsRequest, ListTrainsResponse>,
+    callback: sendUnaryData<ListTrainsResponse>
+  ): void {
+    // TODO: Implement list trains request
+  }
+
   public createTrain(
     call: ServerUnaryCall<CreateTrainRequest, Train>,
-    callback: sendUnaryData<Train>
+    callback: sendUnaryData<CreateTrainResponse>
   ): void {
-    // TODO: Implement function to create train and return response
-  }
+    // Get train from incoming request
+    const train = call.request.getTrain();
+    train.setId(trainCount++);
 
-  public getTrain(
-    call: ServerUnaryCall<GetTrainRequest, Train>,
-    callback: sendUnaryData<Train>
-  ): void {
-    // TODO: Implement function to return train
-  }
+    // TODO: Add train to trains array
+    // Hint: to add elements to an array use push() function
 
-  public updateTrain(
-    call: ServerUnaryCall<UpdateTrainRequest, Train>,
-    callback: sendUnaryData<Train>
-  ): void {
-    // TODO: Implement function to update train
+    // Return response without errors back to client
+    const response = new CreateTrainResponse();
+    callback(null, response);
   }
 
   public deleteTrain(
     call: ServerUnaryCall<DeleteTrainRequest, any>,
     callback: sendUnaryData<DeleteTrainResponse>
   ): void {
-    // TODO: Implement function to delete train
-  }
+    const trainId = call.request.getId();
 
-  public listTrains(
-    call: ServerUnaryCall<ListTrainsRequest, ListTrainsResponse>,
-    callback: sendUnaryData<ListTrainsResponse>
-  ): void {
-    // TODO: Implement function to list trains
+    // TODO: Implement function to delete train
+    // Hint 1: Get index of train using findIndex (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
+    // Hint 2: Remove element from array at index using splice(index, 1)
+    // Bonus: Return error if ID doesn't exist
+
+    trains.findIndex((train) => train.getId() === trainId);
+
+    const response = new DeleteTrainResponse();
+    callback(null, response);
   }
 }
 
