@@ -43,7 +43,7 @@ export function createTrain(
 }
 
 export function deleteTrain(
-  id: string,
+  id: number,
   callback: Callback<DeleteTrainResponse>
 ) {
   const request = new DeleteTrainRequest();
