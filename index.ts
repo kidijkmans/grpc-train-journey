@@ -88,7 +88,7 @@ getTrainsButton.addEventListener("click", () => {
 
 deleteTrainButton.addEventListener("click", () => {
   const formData = new FormData(deleteTrainForm);
-  const id = formData.get("train-id") as string;
+  const id = Number(formData.get("train-id") as string);
 
   deleteTrain(id, (err, _) => {
     if (err) {
