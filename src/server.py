@@ -22,7 +22,6 @@ class TrainAPIServicer(api.TrainAPIServicer):
         response = protos.ListTrainsResponse()
 
         # TODO: Set the list of trains to be returned
-        response.trains.extend(self.trains)
 
         return response
     
@@ -32,7 +31,6 @@ class TrainAPIServicer(api.TrainAPIServicer):
         self.trainCount += 1
         
         # TODO: Add the new train to trains
-        self.trains.append(train)
 
         response = protos.CreateTrainResponse()
         return response
@@ -41,9 +39,7 @@ class TrainAPIServicer(api.TrainAPIServicer):
         trainId = request.id
 
         # TODO: Remove the train with id=trainId from trains
-        self.trains = [train for train in self.trains if train.id != trainId]
-        #self.trains = filter(lambda train: train.getId() != trainId, self.trains)
-        
+
         response = protos.DeleteTrainResponse()
         return response
     
