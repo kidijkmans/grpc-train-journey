@@ -134,3 +134,8 @@ The code now works given that the train id in the request exists in the trains a
 ```typescript
 callback({ name: "Error", message: `Train with id ${trainId} was not found`}, null);
 ```
+
+For python command:
+```bash
+python -m grpc_tools.protoc -Iproto --python_out=src/generated/server --grpc_python_out=src/generated/server proto/train_api.proto
+```
