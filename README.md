@@ -78,12 +78,10 @@ client.listTrains(request, callback);
 
 > Make sure to pass the callback as well so the UI is notified about the server response
 
-In ```server.ts``` in the ```listTrains``` method create the ```ListTrainsResponse``` set trains property of it and pass it to the callback as following.
+In ```server.py``` in the ```ListTrains``` method set the trains property of the  ```ListTrainsResponse```.
 
-```typescript
-const response = new ListTrainsResponse();
-response.setTrainsList(trains);
-callback(null, response);
+```python
+response.trains.extend(self.trains)
 ```
 
 ### 2. Implement CreateTrain request
@@ -108,13 +106,13 @@ request.setTrain(train);
 client.createTrain(request, callback);
 ```
 
-To implement the functionality on the server open ```server.ts``` and in the ```createTrain``` method push the train from the request into the ```trains``` array.
+To implement the functionality on the server open ```server.py``` and in the ```CreateTrain``` method append the train from the request into the ```trains``` array.
 
-```typescript
-trains.push(train)
+```python
+self.trains.append(train)
 ```
 
-This will add it to the array and you should now see your created train when you click on the List Train button. In a real application instead pushing the tran on an array we could persist it in a database.
+This will add it to the array and you should now see your created train when you click on the List Train button. In a real application instead of pushing the train on an array we could persist it in a database.
 
 ### 3. Implement DeleteTrain request
 
@@ -133,23 +131,19 @@ request.setId(id);
 client.deleteTrain(request, callback);
 ```
 
-In ```server.ts``` you have to first find the index of the train with the given id and then remove it from the trains array. To do this, we use the ```findIndex``` and ```splice``` methods.
+In ```server.py``` you could filter trains to select elements which don't have that ID
 
-```typescript
-// Get index of train which id equals trainId
-const index = trains.findIndex((train) => train.getId() === trainId);
-// Delete train at index from array
-trains.splice(index, 1);
+```python
+self.trains = [train for train in self.trains if train.id != trainId]
+# Or this way
+self.trains = filter(lambda train: train.getId() != trainId, self.trains)
 ```
 
-The code now works given that the train id in the request exists in the trains array. In case no train can be found with the given id we should return an error to the client. To do this check if the index returned from the ```findIndex``` method is -1 and if so return an error as such.
+Challenge: The code now works given that the train id in the request exists in the trains array. In case no train can be found with the given id, how can we return an error to the client?
 
+Hint:
 
-```typescript
-callback({ name: "Error", message: `Train with id ${trainId} was not found`}, null);
-```
-
-For python command:
-```bash
-python -m grpc_tools.protoc -Iproto --python_out=src/generated/server --grpc_python_out=src/generated/server proto/train_api.proto
+```python
+context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+context.set_details('Could not find a train with the given id!')
 ```
