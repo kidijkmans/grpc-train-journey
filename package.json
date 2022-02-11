@@ -6,23 +6,14 @@
   "author": "Alex Lloyd",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "proto-gen-osx": "npm-run-all proto-gen-client-osx proto-gen-server-osx",
-    "proto-gen-win32": "npm-run-all proto-gen-client-win32 proto-gen-server-win32",
-    "proto-gen-win64": "npm-run-all proto-gen-client-win64 proto-gen-server-win64",
-    "proto-gen-linux": "npm-run-all proto-gen-client-linux proto-gen-server-linux",
     "proto-gen-client-osx": "./protoc/protoc-3.18.1-osx-x86_64/bin/protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --js_out=\"import_style=commonjs,binary:./src/generated/client\" --ts_out=\"service=grpc-web:./src/generated/client\" proto/train_api.proto",
-    "proto-gen-server-osx": "./protoc/protoc-3.18.1-osx-x86_64/bin/protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --plugin=\"protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin\" --js_out=\"import_style=commonjs,binary:./src/generated/server\" --ts_out=\"service=grpc-node,mode=grpc-js:./src/generated/server\" --grpc_out=\"grpc_js:./src/generated/server\" proto/train_api.proto",
     "proto-gen-client-win32": "protoc\\protoc-3.18.1-win32\\bin\\protoc.exe --plugin=\"protoc-gen-ts=node_modules\\.bin\\protoc-gen-ts.cmd\" --js_out=\"import_style=commonjs,binary:src\\generated\\client\" --ts_out=\"service=grpc-web:src\\generated\\client\" proto\\train_api.proto",
-    "proto-gen-server-win32": "protoc\\protoc-3.18.1-win32\\bin\\protoc.exe --plugin=\"protoc-gen-ts=node_modules\\.bin\\protoc-gen-ts.cmd\" --plugin=\"protoc-gen-grpc=node_modules\\.bin\\grpc_tools_node_protoc_plugin.cmd\" --js_out=\"import_style=commonjs,binary:src\\generated/server\" --ts_out=\"service=grpc-node,mode=grpc-js:src\\generated\\server\" --grpc_out=\"grpc_js:src/generated\\server\" proto\\train_api.proto",
     "proto-gen-client-win64": "protoc\\protoc-3.18.1-win64\\bin\\protoc.exe --plugin=\"protoc-gen-ts=node_modules\\.bin\\protoc-gen-ts.cmd\" --js_out=\"import_style=commonjs,binary:src\\generated\\client\" --ts_out=\"service=grpc-web:src\\generated\\client\" proto\\train_api.proto",
-    "proto-gen-server-win64": "protoc\\protoc-3.18.1-win64\\bin\\protoc.exe --plugin=\"protoc-gen-ts=node_modules\\.bin\\protoc-gen-ts.cmd\" --plugin=\"protoc-gen-grpc=node_modules\\.bin\\grpc_tools_node_protoc_plugin.cmd\" --js_out=\"import_style=commonjs,binary:src\\generated\\server\" --ts_out=\"service=grpc-node,mode=grpc-js:src\\generated\\server\" --grpc_out=\"grpc_js:src\\generated\\server\" proto\\train_api.proto",
     "proto-gen-client-linux": "./protoc/protoc-3.18.1-linux-x86_64/bin/protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --js_out=\"import_style=commonjs,binary:./src/generated/client\" --ts_out=\"service=grpc-web:./src/generated/client\" proto/train_api.proto",
-    "proto-gen-server-linux": "./protoc/protoc-3.18.1-linux-x86_64/bin/protoc --plugin=\"protoc-gen-ts=./node_modules/.bin/protoc-gen-ts\" --plugin=\"protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin\" --js_out=\"import_style=commonjs,binary:./src/generated/server\" --ts_out=\"service=grpc-node,mode=grpc-js:./src/generated/server\" --grpc_out=\"grpc_js:./src/generated/server\" proto/train_api.proto",
     "webproxy-osx": "./webproxy/grpcwebproxy-v0.14.1-osx-x86_64 --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins --backend_backoff_max_delay 1ms",
     "webproxy-win32": "webproxy\\grpcwebproxy-v0.14.1-win32.exe --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins --backend_backoff_max_delay 1ms",
     "webproxy-win64": "webproxy\\grpcwebproxy-v0.14.1-win64.exe --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins --backend_backoff_max_delay 1ms",
     "webproxy-linux": "./webproxy/grpcwebproxy-v0.14.1-linux-x86_64 --backend_addr=localhost:50051 --run_tls_server=false --allow_all_origins --backend_backoff_max_delay 1ms",
-    "server": "nodemon src/server.ts",
     "client": "webpack serve"
   },
   "devDependencies": {
