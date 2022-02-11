@@ -3,33 +3,47 @@
 ## Getting Started
 
 1. Install NodeJS from [NodeJS website](https://nodejs.org/en/download/)
-2. Download or clone the project (if you have git installed). You can download the [project here](https://github.com/alexander-lloyd/grpc-train-journey/archive/refs/heads/master.zip)
+2. Install Python from [Python website](https://www.python.org/downloads/)
+3. Download or clone the project (if you have git installed). You can download the [project here](https://github.com/OmarKidwai/grpc-train-journey/archive/refs/heads/master.zip)
 
 ```bash
-git clone https://github.com/alexander-lloyd/grpc-train-journey.git
+git clone https://github.com/OmarKidwai/grpc-train-journey.git
 cd grpc-train-journey
 ```
 
-3. Run npm install
+4. Run npm install
 
 ```bash
 npm install
 ```
 
-4. Generate the client and server stubs. The command to run will vary based on your Operating System:
+5. Generate the client stubs. The command to run will vary based on your Operating System:
 
-- MacOS: `npm run proto-gen-osx`
-- Linux: `npm run proto-gen-linux`
-- Windows 64bit: `npm run proto-gen-win64`
-- Windows 32bit: `npm run proto-gen-win32`
+- MacOS: `npm run proto-gen-client-osx`
+- Linux: `npm run proto-gen-client-linux`
+- Windows 64bit: `npm run proto-gen-client-win64`
+- Windows 32bit: `npm run proto-gen-client-win32`
 
+6. Run pip install grpcio-tools
 
-5. Open 3 terminals and run the grpc server, grpc-web-proxy and webpack dev server.
+```bash
+pip install grpcio-tools
+```
+
+7. Generate the server stubs.
+
+```bash
+python -m grpc_tools.protoc -Iproto --python_out=src/generated/server --grpc_python_out=src/generated/server proto/train_api.proto
+```
+
+8. Open 3 terminals and run the python server, grpc-web-proxy and webpack dev server.
 
  Terminal 1:
 
-```bash
-npm run server
+Run server.py. You may have to navigate to train_api_pb2_grpc.py and edit the import to get this to work
+
+```python
+from generated.server import train_api_pb2 as train_api_pb2
 ```
 
 Terminal 2 (this will vary depending on Operating System):
