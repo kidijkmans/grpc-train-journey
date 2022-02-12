@@ -43,7 +43,7 @@ python -m grpc_tools.protoc -Iproto --python_out=src/generated/server --grpc_pyt
 Run server.py. You may have to navigate to train_api_pb2_grpc.py and edit the import to get this to work
 
 ```python
-from generated.server import train_api_pb2 as train_api_pb2
+from generated.server import train_api_pb2 as train__api__pb2
 ```
 
 Terminal 2 (this will vary depending on Operating System):
