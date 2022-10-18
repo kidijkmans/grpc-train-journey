@@ -158,18 +158,18 @@ context.set_details('Could not find a train with the given id!')
 
 This project provides a template on which you could build your own project using gRPC, with the complexities of setting up the connection already handled for you.
 
-1. Change the Proto: Update train_api.proto with the objects you want to send between your frontend and backend, and the associated RPCs.
+1. **Change the Proto**: Update train_api.proto with the objects you want to send between your frontend and backend, and the associated RPCs.
 
-2. Update package.json: Assuming you renamed train_api.proto to something else, you'll need to update the proto-gen scripts to the correct proto name.
+2. **Update package.json**: Assuming you renamed train_api.proto to something else, you'll need to update the proto-gen scripts to the correct proto name.
 
-3. Generate the Stubs: Run commands 5 and 7 from Getting Started, updating the proto name in the python command.
+3. **Generate the Stubs**: Run commands 5 and 7 from Getting Started, updating the proto name in the python command.
 
-<u>FRONTEND</u>
+FRONTEND
 
-4. Update client.ts: Change the const client to the newly generated APIClient and write functions to call each of the API endpoints. We implemented these functions for Train Journey in the challenges.
+4. **Update client.ts**: Change the const client to the newly generated APIClient and write functions to call each of the API endpoints. We implemented these functions for Train Journey in the challenges.
 
-5. Update index.ts and index.html: This is where you actually write your frontend. Style your UI the way you need for your project and call the functions defined in client.ts where you need them e.g. buttons, refresh etc.
+5. **Update index.ts and index.html**: This is where you actually write your frontend. Style your UI the way you need for your project and call the functions defined in client.ts where you need them e.g. buttons, refresh etc.
 
-<u>BACKEND</u>
+BACKEND
 
-6. Update server.py: This is where you actually write your backend and the implementation of your API. Update TrainAPIServicer to extend the newly generated Servicer, implement all the RPCs like we did for TrainAPI, add all the logic your project requires.
+6. **Update server.py**: This is where you actually write your backend and the implementation of your API. Update TrainAPIServicer to extend the newly generated Servicer, implement all the RPCs like we did for Train Journey, add all the logic your project requires.
