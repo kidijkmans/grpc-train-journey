@@ -30,11 +30,15 @@ npm install
 pip install grpcio-tools
 ```
 
+If the above command doesn't work, try `pip3`
+
 7. Generate the server stubs.
 
 ```bash
 python -m grpc_tools.protoc -Iproto --python_out=src/generated/server --grpc_python_out=src/generated/server proto/train_api.proto
 ```
+
+If the above command doesn't work, try `python3`
 
 8. Open 3 terminals and run the python server, grpc-web-proxy and webpack dev server.
 
@@ -58,6 +62,8 @@ Terminal 3:
 ```bash
 npm run client
 ```
+
+9. Navigate to [http://localhost:3000/](http://localhost:3000/) where the UI should be served.
 
 ## Challenges
 
@@ -147,3 +153,23 @@ Hint:
 context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
 context.set_details('Could not find a train with the given id!')
 ```
+
+## Building On This Project
+
+This project provides a template on which you could build your own project using gRPC, with the complexities of setting up the connection already handled for you.
+
+1. Change the Proto: Update train_api.proto with the objects you want to send between your frontend and backend, and the associated RPCs.
+
+2. Update package.json: Assuming you renamed train_api.proto to something else, you'll need to update the proto-gen scripts to the correct proto name.
+
+3. Generate the Stubs: Run commands 5 and 7 from Getting Started, updating the proto name in the python command.
+
+<u>FRONTEND</u>
+
+4. Update client.ts: Change the const client to the newly generated APIClient and write functions to call each of the API endpoints. We implemented these functions for Train Journey in the challenges.
+
+5. Update index.ts and index.html: This is where you actually write your frontend. Style your UI the way you need for your project and call the functions defined in client.ts where you need them e.g. buttons, refresh etc.
+
+<u>BACKEND</u>
+
+6. Update server.py: This is where you actually write your backend and the implementation of your API. Update TrainAPIServicer to extend the newly generated Servicer, implement all the RPCs like we did for TrainAPI, add all the logic your project requires.
