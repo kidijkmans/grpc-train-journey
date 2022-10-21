@@ -44,7 +44,8 @@ If the above command doesn't work, try `python3`
 
  Terminal 1:
 
-Run server.py. You may have to navigate to train_api_pb2_grpc.py and edit the import to get this to work
+Run server.py. If you have the python extension on VS Code you can just click the run button, otherwise you can run `python src/server.py`
+You may have to navigate to train_api_pb2_grpc.py and edit the import to get this to work
 
 ```python
 from generated.server import train_api_pb2 as train__api__pb2
